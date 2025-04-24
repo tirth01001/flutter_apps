@@ -1,0 +1,48 @@
+Bhai, agar main ek normal user hota TO_DO app use karne ke liye, toh mujhe yeh features definitely chahiye hote — practical aur real life ke liye:
+
+🔹 Basic Features (Zaroori hain):
+Task Add Karne Ka Option:
+Ek simple aur fast way ho task add karne ka — title, description, due date, time.
+
+Reminders & Notifications:
+Time par ya due date se pehle reminder aaye — warna kaam bhool jaate hain.
+
+Priority Setting:
+High, Medium, Low jaise tags ho — taaki main decide kar saku pehle kya karna hai.
+
+Task Categories/Labels:
+Personal, Work, Shopping, etc. — kaam alag alag categorize ho jaaye.
+
+Task Done Mark Karna:
+Jaise hi kaam complete ho, ek tap me tick mark ho jaye aur "Completed" list me chala jaye.
+
+🔸 Thode Pro Features (Lazmi nahi, lekin mazedaar):
+Dark Mode:
+Raat me aankhon ko sukoon mile.
+
+Search & Filter:
+Keywords se task dhoondh saku, ya filter by priority, date, etc.
+
+Daily/Weekly Summary:
+Subah ya raat ko ek summary aaye — aaj kya kya karna hai / kya ho gaya.
+
+Recurring Tasks:
+Har week ya har mahine repeat hone wale tasks ke liye option.
+
+Offline Access:
+Net na ho tab bhi kaam kare — sab kuch locally store ho.
+
+🔹 Bonus Wale Ideas (Extra smart user ke liye):
+Voice Input:
+Bolke task add kar saku — "Kal 5 baje doctor jaana hai."
+
+Widget Support:
+Home screen pe direct dekh saku aaj ke tasks.
+
+Cloud Sync (Optional):
+Device change karu toh bhi mera data safe rahe.
+
+Motivational Quotes:
+Har din ek chhoti si line aaye: "You got this!" 🔥
+
+Agar main sach me is app ka regular user hota, toh yeh features mujhe kaafi useful lagte. Tu bata, isme se kya kya add karega? Ya aur bhi kuch soch raha hai kya?

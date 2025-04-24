@@ -1,0 +1,57 @@
+Total Tasks:
+
+Total number of tasks jo user ne create kiye hain.
+
+Example: "Total Tasks: 10"
+
+Pending Tasks:
+
+Number of tasks jo abhi pending hain, yani unpe kaam abhi tak shuru nahi hua hai.
+
+Example: "Pending: 4"
+
+In Progress Tasks:
+
+Number of tasks jo abhi actively chal rahe hain ya incomplete hain.
+
+Example: "In Progress: 3"
+
+Completed Tasks:
+
+Number of tasks jo user ne complete kiye hain.
+
+Example: "Completed: 3"
+
+Progress Percentage:
+
+Total tasks ka progress percentage, jisme aap completed tasks ka count kar ke percentage nikaal sakte hain.
+
+Example: "Progress: 60%" (agar 6 tasks completed hain out of 10)
+
+Overdue Tasks (optional):
+
+Number of tasks jo unke due date se pichhe chal rahi hain.
+
+Example: "Overdue: 1" (agar koi task due date ke baad complete nahi hua)
+
+Upcoming Tasks (optional):
+
+Number of tasks jo future mein due hain.
+
+Example: "Upcoming: 2" (agar koi task future mein scheduled hai)
+
+Average Task Duration (optional):
+
+Agar aap tasks ko time track kar rahe hain, to average time jo har task ko complete hone mein lag raha hai.
+
+Example: "Avg Duration: 2 days"
+
+Task Breakdown by Priority (optional):
+
+Tasks ko alag-alag priority levels (High, Medium, Low) mein breakdown karna. Yeh user ko help karega ki wo kaunse tasks pe focus karein.
+
+Example: "High Priority: 2, Medium Priority: 4, Low Priority: 4"
+
+In statistics ko aap bottom bar mein, ya task statistics section mein display kar sakte hain. Yeh user ko unke task management mein madad karega aur unhe apne progress ka overview milega.
+
+Agar aapko isko Flutter mein implement karne ka code chahiye ho to, batayein!
