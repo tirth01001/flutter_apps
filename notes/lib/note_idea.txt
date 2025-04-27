@@ -1,0 +1,123 @@
+बहुत बढ़िया, अब बात समझ आ गई 💡 — तुम्हें एक **purely offline note-taking system** बनाना है, जिसमें **maximum 100 fields** तक की detail हो, **कोई online/cloud/API/sync से related field नहीं होनी चाहिए**।
+
+तो अब मैं तुम्हें एक **offline-only Note structure** देने जा रहा हूँ — जो SQLite या Hive जैसे local DB में स्टोर करने लायक हो। इसमें हर वो field शामिल है जो एक pro-level offline note app को चाहिए होती है।
+
+---
+
+## ✅ Offline Note Model (Max Detailed, No Online Stuff)
+
+| Field No. | Field Name           | Type             | Description |
+|-----------|----------------------|------------------|-------------|
+| 1         | `id`                 | String/int       | Unique ID |
+| 2         | `title`              | String           | Note का title |
+| 3         | `content`            | String           | Note का main body |
+| 4         | `createdAt`          | DateTime         | Note कब बना |
+| 5         | `updatedAt`          | DateTime         | कब आखरी बार बदला |
+| 6         | `isPinned`           | bool             | Pin किया या नहीं |
+| 7         | `isArchived`         | bool             | Archive में है या नहीं |
+| 8         | `isDeleted`          | bool             | Soft delete |
+| 9         | `tags`               | List<String>     | Tags list |
+| 10        | `colorHex`           | String           | Note की background color |
+| 11        | `reminder`           | DateTime?        | Offline reminder (local notification के लिए) |
+| 12        | `attachments`        | List<String>     | File paths (PDF, image, etc.) |
+| 13        | `voiceNotePath`      | String?          | Voice recording का path |
+| 14        | `imagePaths`         | List<String>     | Local image paths |
+| 15        | `locationNote`       | String?          | User ने location manually लिखा हो |
+| 16        | `mood`               | String           | Mood emoji या text |
+| 17        | `priority`           | String           | Low / Medium / High |
+| 18        | `fontSize`           | double           | Text size |
+| 19        | `fontStyle`          | String           | Normal, Italic, Bold etc. |
+| 20        | `fontFamily`         | String           | Roboto, Montserrat etc. |
+| 21        | `alignment`          | String           | Left, Center, Right |
+| 22        | `lineHeight`         | double           | Line spacing |
+| 23        | `letterSpacing`      | double           | Character spacing |
+| 24        | `textDirection`      | String           | ltr/rtl |
+| 25        | `isChecklist`        | bool             | Is this a checklist? |
+| 26        | `checklistItems`     | List<CheckItem>  | List of checkbox items |
+| 27        | `passwordProtected`  | bool             | Password से locked है या नहीं |
+| 28        | `passwordHint`       | String?          | Hint for password |
+| 29        | `themeMode`          | String           | Light/Dark/Custom |
+| 30        | `templateName`       | String?          | अगर कोई template से बना हो |
+| 31        | `wordCount`          | int              | Words की संख्या |
+| 32        | `characterCount`     | int              | Characters की संख्या |
+| 33        | `readingTimeMin`     | int              | Approx reading time |
+| 34        | `noteType`           | String           | Text / Voice / Mixed |
+| 35        | `deviceName`         | String           | जिस device से बना |
+| 36        | `osVersion`          | String           | Android version etc. |
+| 37        | `appVersion`         | String           | App version |
+| 38        | `groupName`          | String           | Note group / folder |
+| 39        | `noteIndex`          | int              | Sorting के लिए index |
+| 40        | `customFields`       | Map<String,dynamic> | Extra user fields |
+| 41        | `linkedNoteIds`      | List<String>     | Link किए गए notes |
+| 42        | `favorite`           | bool             | Is this marked favorite? |
+| 43        | `archivedReason`     | String?          | क्यों archive किया गया |
+| 44        | `deletedReason`      | String?          | Delete reason |
+| 45        | `relatedLinks`       | List<String>     | Internal references |
+| 46        | `emojiReaction`      | String?          | User's feeling/reaction |
+| 47        | `autoSaveEnabled`    | bool             | Auto-save on/off |
+| 48        | `customHeader`       | String?          | Optional section heading |
+| 49        | `customFooter`       | String?          | Optional footer |
+| 50        | `showLineNumbers`    | bool             | For long notes |
+| 51        | `textWrapEnabled`    | bool             | UI wrapping on/off |
+| 52        | `spellCheckEnabled`  | bool             | Auto-correct allowed? |
+| 53        | `versionNumber`      | int              | कितने बार save हुआ |
+| 54        | `lastEditedBy`       | String?          | अगर multi-user local app हो |
+| 55        | `noteLanguage`       | String           | e.g., "en", "hi", "ur" |
+| 56        | `noteLayoutStyle`    | String           | Card, list, grid |
+| 57        | `gestureShortcut`    | String?          | e.g., "double-tap to pin" |
+| 58        | `noteIcon`           | String?          | Icon path or emoji |
+| 59        | `drawings`           | List<String>     | Saved sketch/image paths |
+| 60        | `markdownEnabled`    | bool             | Is markdown used? |
+| 61        | `htmlContent`        | String?          | Rich content backup |
+| 62        | `textStylePreset`    | String?          | "Heading 1", "Body", etc. |
+| 63        | `collapsed`          | bool             | Folded note |
+| 64        | `expanded`           | bool             | UI expand flag |
+| 65        | `scrollPosition`     | double           | Last scroll y position |
+| 66        | `hasBulletPoints`    | bool             | Whether bullets used |
+| 67        | `lastViewed`         | DateTime         | आखिरी बार देखा कब |
+| 68        | `noteDuration`       | int              | कितनी देर लिखा गया (in seconds) |
+| 69        | `backupVersion`      | int              | Local backup versioning |
+| 70        | `textShadowEnabled`  | bool             | UI decoration |
+| 71        | `textBackgroundColor`| String?          | Highlight bg |
+| 72        | `isCollapsedInitially`| bool            | Auto-collapse on load |
+| 73        | `visibleInSearch`    | bool             | Search से hide/show |
+| 74        | `noteSlug`           | String           | Internal use for linking |
+| 75        | `timeZone`           | String           | e.g., "Asia/Kolkata" |
+| 76        | `noteSizeKb`         | double           | Size in KB |
+| 77        | `notePreview`        | String           | Short summary for list |
+| 78        | `noteImportance`     | int              | 1-10 scale |
+| 79        | `customSortKey`      | String?          | Sorting के लिए user-defined key |
+| 80        | `duplicateCount`     | int              | कितनी बार डुप्लिकेट हुआ |
+| 81        | `noteLockType`       | String?          | Pin, Pattern, Password |
+| 82        | `hasTimeStampTags`   | bool             | Date/time tags include हैं क्या? |
+| 83        | `recentlyUsed`       | bool             | Recent list में है या नहीं |
+| 84        | `wordHighlights`     | List<String>     | Marked important words |
+| 85        | `noteCategory`       | String           | Diary, Work, Study, etc. |
+| 86        | `activityLevel`      | int              | कितनी बार open/edit हुआ |
+| 87        | `customAlertTone`    | String?          | Notification tone path |
+| 88        | `noteQuote`          | String?          | Motivational or personal quote |
+| 89        | `weatherNote`        | String?          | User-described weather (manually written) |
+| 90        | `noteMoodColor`      | String?          | Mood के हिसाब से रंग |
+| 91        | `notePurpose`        | String?          | Why this note was created |
+| 92        | `hasTimeStamp`       | bool             | Has timestamp in content |
+| 93        | `isAutoGenerated`    | bool             | Auto-generated vs user written |
+| 94        | `noteEditionMode`    | String          
+
+
+
+
+
+
+
+
+
+
+
++------------------------------------------------------+
+| 📝 Title: "Meeting Notes"          ⭐️   📌          |
+| Tags: [Work] [Client]                      Priority: 🔴 High |
+| Content preview: "Discussed app features..."        |
+| 📷 1 image     ⏰ Reminder: Tomorrow, 10AM           |
+| 😌 Mood: Relaxed       📋 Checklist       📁 Category: Work |
+| Created: 2 days ago                                 |
++------------------------------------------------------+

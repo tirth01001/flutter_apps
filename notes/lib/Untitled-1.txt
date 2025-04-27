@@ -1,0 +1,93 @@
+
+
+
+बहुत बढ़िया सवाल! अगर तुम Flutter में **BLoC (Business Logic Component)** pattern का इस्तेमाल कर रहे हो, तो इसमें कुछ **important top-level functions** और concepts होते हैं जो बार-बार काम आते हैं।
+
+---
+
+### 🔝 BLoC में सबसे ज़्यादा use होने वाले top functions/concepts:
+
+#### 1. **`add(event)`**
+- Event को BLoC में भेजने के लिए।
+- Example:
+  ```dart
+  myBloc.add(LoadDataEvent());
+  ```
+
+#### 2. **`mapEventToState`** (अगर तुम पुराना Bloc इस्तेमाल कर रहे हो)
+- हर event पर क्या होना चाहिए, यह बताता है।
+- अब modern BLoC में इसे `on<Event>()` से replace किया गया है।
+
+#### 3. **`on<EventName>((event, emit) {})`**
+- हर event पर क्या state emit करनी है।
+- Example:
+  ```dart
+  on<LoadDataEvent>((event, emit) {
+    emit(LoadingState());
+    // fetch data
+    emit(DataLoadedState(data));
+  });
+  ```
+
+#### 4. **`emit(state)`**
+- नया state भेजने के लिए।
+- बस `on<Event>` या `mapEventToState` के अंदर यूज़ होता है।
+
+#### 5. **`BlocProvider`**
+- BLoC को widget tree में available कराने के लिए।
+- Example:
+  ```dart
+  BlocProvider(
+    create: (_) => MyBloc(),
+    child: MyHomePage(),
+  );
+  ```
+
+#### 6. **`BlocBuilder`**
+- State के changes को UI में दिखाने के लिए।
+- Example:
+  ```dart
+  BlocBuilder<MyBloc, MyState>(
+    builder: (context, state) {
+      if (state is LoadingState) {
+        return CircularProgressIndicator();
+      }
+      return Text("Data Loaded");
+    },
+  );
+  ```
+
+#### 7. **`BlocListener`**
+- एक बार का काम करने के लिए, जैसे snackbar दिखाना।
+
+---
+
+### Bonus: सबसे common structure
+
+```dart
+// Events
+abstract class MyEvent {}
+class LoadDataEvent extends MyEvent {}
+
+// States
+abstract class MyState {}
+class LoadingState extends MyState {}
+class DataLoadedState extends MyState {
+  final List data;
+  DataLoadedState(this.data);
+}
+
+// Bloc
+class MyBloc extends Bloc<MyEvent, MyState> {
+  MyBloc() : super(LoadingState()) {
+    on<LoadDataEvent>((event, emit) {
+      // fetch data
+      emit(DataLoadedState(["Apple", "Banana"]));
+    });
+  }
+}
+```
+
+---
+
+अगर चाहो तो मैं एक छोटा runnable BLoC example भी बना सकता हूँ Flutter के लिए। बनाऊँ?
